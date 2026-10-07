@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Louis Bouddhou - Senior Frontend Engineer</title>
+<meta name="description" content="Senior frontend engineer in New York. Shared frontend platform, monorepo delivery across ten repositories, AI tooling adoption, and the architecture documents other engineers build from. This page measures its own performance.">
+<link rel="canonical" href="https://louisbouddhou.com/">
+<meta property="og:title" content="Louis Bouddhou - Senior Frontend Engineer">
+<meta property="og:description" content="Shared frontend platform, monorepo delivery across ten repositories, AI tooling adoption, and the architecture documents other engineers build from. This page measures its own performance.">
+<meta property="og:type" content="profile">
+<meta property="og:url" content="https://louisbouddhou.com/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>◆</text></svg>">
+<style>
+:root{
+  --bg:#fbfbfa; --fg:#16161a; --dim:#65656d; --faint:#9a9aa2;
+  --line:#e3e3e0; --panel:#ffffff; --accent:#1b5e3f; --warn:#8a4b12; --bad:#9b2226;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e0e10; --fg:#ececed; --dim:#9b9ba3; --faint:#65656d;
+    --line:#242428; --panel:#151517; --accent:#5fd39b; --warn:#e0a458; --bad:#f07167;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e0e10; --fg:#ececed; --dim:#9b9ba3; --faint:#65656d;
+  --line:#242428; --panel:#151517; --accent:#5fd39b; --warn:#e0a458; --bad:#f07167;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--fg);
+  font:16px/1.65 var(--sans);
+  -webkit-font-smoothing:antialiased;
+  padding:0 24px;
+}
+.wrap{max-width:760px;margin:0 auto;padding:72px 0 96px}
+a{color:inherit;text-decoration:none;border-bottom:1px solid var(--line);transition:border-color .15s}
+a:hover{border-color:var(--fg)}
+h1{font-size:clamp(30px,5.5vw,40px);line-height:1.15;margin:0 0 10px;letter-spacing:-.022em;font-weight:650}
+h2{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);
+   font-weight:600;margin:0 0 22px;font-family:var(--mono)}
+h3{font-size:17px;margin:0 0 8px;letter-spacing:-.01em;font-weight:620}
+p{margin:0 0 16px;color:var(--dim)}
+p.lead{color:var(--fg);font-size:18px;max-width:56ch}
+section{margin-top:72px}
+.rule{height:1px;background:var(--line);border:0;margin:0}
+
+/* ---------- header ---------- */
+/* The spans are nowrap by design and there is no whitespace between the tags,
+   so this line had no break opportunity at all and ran 121px off a 360px
+   viewport. Flex supplies the break points the markup does not. */
+header .meta{font-family:var(--mono);font-size:13px;color:var(--faint);margin-bottom:26px;
+  display:flex;flex-wrap:wrap;align-items:baseline;row-gap:2px}
+header .meta span{white-space:nowrap}
+header .meta i{font-style:normal;color:var(--line);padding:0 8px}
+
+/* ---------- instrument ---------- */
+.inst{border:1px solid var(--line);background:var(--panel);border-radius:10px;overflow:hidden}
+.inst-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+  padding:14px 18px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;
+  animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.dot{animation:none}}
+.inst-head b{font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.inst-head em{font-style:normal;color:var(--faint);margin-left:auto}
+
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.m{padding:16px 18px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.m:last-child{border-right:0}
+.m-k{font-family:var(--mono);font-size:11px;letter-spacing:.09em;color:var(--faint);
+  text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+.m-v{font-family:var(--mono);font-size:26px;font-variant-numeric:tabular-nums;
+  margin:6px 0 8px;letter-spacing:-.02em}
+.m-v.good{color:var(--accent)} .m-v.mid{color:var(--warn)} .m-v.poor{color:var(--bad)}
+.bar{height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:currentColor;transition:width .45s cubic-bezier(.2,.7,.3,1)}
+.m-b{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:7px}
+
+.ctrl{padding:16px 18px}
+/* :not(.note) matters. Without it this rule also claims the explanatory
+   paragraph below, which outranks .note on specificity (0,1,1 vs 0,1,0) and
+   rendered five lines of prose as 11px uppercase letter-spaced monospace. */
+.ctrl p:not(.note){font-family:var(--mono);font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--faint);margin:0 0 12px}
+.toggles{display:flex;flex-wrap:wrap;gap:8px}
+button{font:500 13px/1 var(--sans);color:var(--fg);background:transparent;
+  border:1px solid var(--line);border-radius:6px;padding:9px 13px;cursor:pointer;
+  transition:border-color .15s,background .15s}
+button:hover{border-color:var(--dim)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button[aria-pressed="true"]{border-color:var(--bad);color:var(--bad)}
+button.reset{margin-left:auto;color:var(--faint)}
+.note{font-size:13px;color:var(--faint);margin:14px 0 0;line-height:1.55}
+.note code{font-family:var(--mono);font-size:12px;color:var(--dim)}
+#shiftzone:empty{display:none}
+#shiftzone div{height:88px;border:1px dashed var(--bad);border-radius:8px;margin:14px 0 0;
+  display:flex;align-items:center;justify-content:center;color:var(--bad);
+  font-family:var(--mono);font-size:11px;letter-spacing:.06em}
+
+/* ---------- work ---------- */
+.item{padding:26px 0;border-top:1px solid var(--line)}
+.item:first-of-type{border-top:0;padding-top:0}
+.item p{margin:0;max-width:64ch}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:7px}
+
+/* ---------- stack ---------- */
+.stack{display:grid;grid-template-columns:1fr auto;gap:0 20px;font-size:14.5px}
+.stack div{padding:9px 0;border-top:1px solid var(--line)}
+.stack div:nth-child(-n+2){border-top:0}
+.stack .d{text-align:right;font-family:var(--mono);font-size:12px;color:var(--faint);white-space:nowrap}
+
+/* ---------- footer ---------- */
+footer{margin-top:80px;padding-top:26px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:12.5px;color:var(--faint)}
+footer a{border-bottom-color:var(--line)}
+.pagestat{margin-top:10px;color:var(--line)}
+@media (max-width:560px){
+  body{padding:0 18px}.wrap{padding:48px 0 64px}
+  .m{border-right:0}
+}
+</style>
+</head>
+<body>
+<script>
+// Degraded mode must run before anything can paint, so it sits here at the very top of
+// body and blocks synchronously. This is the same mistake real sites make by accident.
+(function(){
+  if(location.search.indexOf("degrade") === -1) return;
+  var stop = performance.now() + 4500;
+  while(performance.now() < stop){ /* blocking first paint on purpose */ }
+})();
+</script>
+<div class="wrap">
+
+<header>
+  <h1>Louis Bouddhou</h1>
+  <div class="meta">
+    <span>Senior Frontend Engineer</span><i>/</i><span>New York</span><i>/</i><span>10 years, one company</span>
+  </div>
+  <p class="lead">I work on the parts of a frontend that no single team owns: the shared
+  platform other teams build on, the coordination that gets one change through ten
+  repositories, and the written decisions that let teams build in parallel without
+  colliding.</p>
+</header>
+
+<section aria-labelledby="inst-h">
+  <h2 id="inst-h">Live instrument</h2>
+  <div class="inst">
+    <div class="inst-head">
+      <span class="dot" aria-hidden="true"></span>
+      <b>Measuring this page, in your browser, right now</b>
+      <em id="ua-note">PerformanceObserver</em>
+    </div>
+
+    <div class="metrics">
+      <div class="m">
+        <div class="m-k"><span>LCP</span><span id="lcp-s">-</span></div>
+        <div class="m-v" id="lcp">...</div>
+        <div class="bar"><i id="lcp-b"></i></div>
+        <div class="m-b">good &lt; 2.5s</div>
+      </div>
+      <div class="m">
+        <div class="m-k"><span>CLS</span><span id="cls-s">-</span></div>
+        <div class="m-v" id="cls">...</div>
+        <div class="bar"><i id="cls-b"></i></div>
+        <div class="m-b">good &lt; 0.10</div>
+      </div>
+      <div class="m">
+        <div class="m-k"><span>INP</span><span id="inp-s">-</span></div>
+        <div class="m-v" id="inp">...</div>
+        <div class="bar"><i id="inp-b"></i></div>
+        <div class="m-b">good &lt; 200ms</div>
+      </div>
+      <div class="m">
+        <div class="m-k"><span>TTFB</span><span id="ttfb-s">-</span></div>
+        <div class="m-v" id="ttfb">...</div>
+        <div class="bar"><i id="ttfb-b"></i></div>
+        <div class="m-b">good &lt; 800ms</div>
+      </div>
+    </div>
+
+    <div class="ctrl">
+      <p>Break it on purpose</p>
+      <div class="toggles">
+        <button id="t-cls" aria-pressed="false">Inject layout shift</button>
+        <button id="t-inp" aria-pressed="false">Block the main thread</button>
+        <button id="t-dom" aria-pressed="false">Append 5,000 nodes</button>
+        <button id="t-lcp">Reload with a slow render</button>
+        <button class="reset" id="t-reset">Reset</button>
+      </div>
+      <div id="shiftzone"></div>
+      <p class="note" id="explain">CLS and INP update live, because both keep accumulating for
+      the life of the page. LCP does not: the browser stops reporting it at your first
+      interaction, so the only honest way to change it is a real reload. That is what the
+      reload button does. It re-renders this page behind a genuine main-thread block and the
+      number you get back is measured, not staged.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="work-h">
+  <h2 id="work-h">Selected work</h2>
+
+  <div class="item">
+    <div class="tag">AI adoption</div>
+    <h3>Getting a team onto AI coding tools, not just myself</h3>
+    <p>My engineering manager picked me to drive adoption of the company's AI coding framework
+    across the team. I ran the setup across all six of our repositories and wrote the three
+    things that made it stick: the architecture, the skill reference, and the rollout plan the
+    team now works from. The handoff document is cited in the repository's own agent
+    instructions as required reading. Plenty of engineers can say they use these tools. Fewer
+    can point at six repositories where a team uses them because of a decision someone wrote
+    down.</p>
+  </div>
+
+  <div class="item">
+    <div class="tag">Shared frontend platform</div>
+    <h3>One package, nine of ten consumer repositories</h3>
+    <p>I scaffolded an onboarding package from zero inside the shared frontend platform
+    monorepo. It renders in production in nine of our ten consumer-facing repositories. Before
+    any of it could be built I had to choose between two competing architectures and document
+    why, then write the frontend API contract the backend team built against so both sides
+    could work in parallel rather than in sequence. The interesting constraint was never the
+    component. It was that ten repositories had to be able to take it without ten separate
+    conversations.</p>
+  </div>
+
+  <div class="item">
+    <div class="tag">Cross-squad delivery</div>
+    <h3>Five squads, ten repositories, one written playbook</h3>
+    <p>Rolling that package out meant coordinating five squads across ten web repositories.
+    Ad-hoc coordination does not survive that shape, so I replaced it with a playbook naming
+    every consumer repository, its owner, and the order they went in. Over the same stretch I
+    coordinated fifteen or more production deployments across six repositories, including a
+    same-day release spanning three of them. The hard part of multi-repo frontend work is
+    rarely the code. It is that the deploy graph and the user's experience graph are different
+    shapes, and only one of them shows up in your CI.</p>
+  </div>
+
+  <div class="item">
+    <div class="tag">Testing and quality</div>
+    <h3>Making a feature-flagged system testable at all</h3>
+    <p>Feature-flagged flows had no end-to-end coverage, for the unglamorous reason that the
+    flag variants were unreachable from a test. I built a Selenium and pytest suite from zero
+    and designed a two-phase test-authentication pattern that made the variants reachable,
+    taking those flows from untestable to 36 automated cases. Alongside it I closed an OWASP
+    A02 exposure that left a client secret reachable from the browser, lifted new-code coverage
+    from 75.9% past the 80% quality gate, and repaired 33 pre-existing failing tests. Coverage
+    percentages are easy to argue about. A flag variant nobody could exercise is not.</p>
+  </div>
+
+  <div class="item">
+    <div class="tag">Writing that persists</div>
+    <h3>The documents other teams build from</h3>
+    <p>A fair amount of what I do ends up as prose. A ten-part architecture document series for
+    scaling an out-of-network merchant experience to thousands of deactivated stores, covering
+    store availability, retailer and brand surfaces, similar stores, interstitials, coupons,
+    and bulk update paths. An endpoint registry cataloguing roughly forty internal endpoints
+    across six service namespaces. The post-deploy monitoring runbooks the team opens after a
+    release. I am currently serving a rotating term as web guild lead; the concrete thing to
+    come out of it so far is connecting the guild to the OpenAPI documentation standards
+    working group, and the registry that came with it. Specifying something precisely enough
+    that another team can build against it without waiting on me is most of the job.</p>
+  </div>
+</section>
+
+<section aria-labelledby="stack-h">
+  <h2 id="stack-h">Stack, honestly dated</h2>
+  <div class="stack">
+    <div>React, Next.js</div><div class="d">deep, current</div>
+    <div>TypeScript</div><div class="d">deep, current</div>
+    <div>Monorepo tooling, npm package authoring</div><div class="d">deep, current</div>
+    <div>AI-assisted development, MCP agent workflows</div><div class="d">current, team rollout</div>
+    <div>Design system migration and integration</div><div class="d">current</div>
+    <div>GitHub Actions, Jenkins, CI/CD</div><div class="d">deep, current</div>
+    <div>Selenium, pytest, Cypress, Jest</div><div class="d">deep</div>
+    <div>SonarQube, coverage policy, static analysis</div><div class="d">current</div>
+    <div>LaunchDarkly, Datadog, incident response</div><div class="d">current</div>
+    <div>AWS S3, Secrets Manager</div><div class="d">operational</div>
+    <div>Angular, SASS, Node.js</div><div class="d">earlier years</div>
+  </div>
+</section>
+
+<section aria-labelledby="c-h">
+  <h2 id="c-h">Contact</h2>
+  <p class="lead">Open to senior frontend roles in New York, and to remote. If you are building
+  something where frontend architecture actually matters, get in touch.</p>
+  <p style="font-family:var(--mono);font-size:14.5px;color:var(--fg);line-height:2">
+    <a href="mailto:louis.bouddhou@gmail.com">louis.bouddhou@gmail.com</a><br>
+    <a href="https://www.linkedin.com/in/louisbouddhou" rel="me">linkedin.com/in/louisbouddhou</a><br>
+    <a href="/Louis_Bouddhou_Resume.pdf" download>Download resume (PDF)</a>
+  </p>
+</section>
+
+<footer>
+  <div>Hand-written HTML, CSS, and JavaScript. No framework, no dependencies, no build step.</div>
+  <div class="pagestat" id="pagestat">measuring...</div>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var el = function(id){ return document.getElementById(id); };
+  var THRESH = { lcp:[2500,4000], cls:[0.1,0.25], inp:[200,500], ttfb:[800,1800] };
+  var SCALE  = { lcp:5000,        cls:0.5,        inp:600,       ttfb:2500 };
+
+  function paint(key, value, text){
+    var v = el(key), b = el(key + "-b"), s = el(key + "-s");
+    if(!v) return;
+    v.textContent = text;
+    var t = THRESH[key], cls = value <= t[0] ? "good" : (value <= t[1] ? "mid" : "poor");
+    v.className = "m-v " + cls;
+    b.style.width = Math.min(100, (value / SCALE[key]) * 100) + "%";
+    b.parentNode.style.color = getComputedStyle(v).color;
+    s.textContent = cls === "good" ? "good" : (cls === "mid" ? "needs work" : "poor");
+    s.style.color = getComputedStyle(v).color;
+  }
+  var ms = function(n){ return n < 1000 ? Math.round(n) + "ms" : (n/1000).toFixed(2) + "s"; };
+
+  // ---- TTFB: navigation timing, real ----
+  try{
+    var nav = performance.getEntriesByType("navigation")[0];
+    if(nav){ var t = nav.responseStart; paint("ttfb", t, ms(t)); }
+  }catch(e){}
+
+  // ---- LCP: real largest-contentful-paint entries ----
+  var lcpSeen = false;
+  try{
+    new PerformanceObserver(function(list){
+      var es = list.getEntries(), last = es[es.length - 1];
+      if(!last) return;
+      lcpSeen = true;
+      paint("lcp", last.startTime, ms(last.startTime));
+    }).observe({ type:"largest-contentful-paint", buffered:true });
+  }catch(e){ el("lcp").textContent = "n/a"; }
+
+  // ---- CLS: real cumulative layout shift, excluding input-driven shifts ----
+  var cls = 0;
+  try{
+    new PerformanceObserver(function(list){
+      list.getEntries().forEach(function(entry){
+        if(!entry.hadRecentInput){ cls += entry.value; }
+      });
+      paint("cls", cls, cls.toFixed(3));
+    }).observe({ type:"layout-shift", buffered:true });
+    setTimeout(function(){ if(el("cls").textContent === "...") paint("cls", 0, "0.000"); }, 900);
+  }catch(e){ el("cls").textContent = "n/a"; }
+
+  // ---- INP: longest interaction latency observed so far ----
+  var inp = 0;
+  try{
+    new PerformanceObserver(function(list){
+      list.getEntries().forEach(function(entry){
+        if(entry.interactionId && entry.duration > inp){
+          inp = entry.duration;
+          paint("inp", inp, Math.round(inp) + "ms");
+        }
+      });
+    }).observe({ type:"event", durationThreshold:16, buffered:true });
+  }catch(e){ el("inp").textContent = "n/a"; }
+
+  // Be precise about what the INP tile shows. Real INP is the 98th percentile
+  // of all interactions over a full session; this is the worst one so far.
+  el("inp").parentNode.querySelector(".m-b").textContent = "worst so far, good < 200ms";
+  el("inp").textContent = "waiting";
+  el("inp-s").textContent = "interact";
+
+  // ---------- sabotage controls, all genuinely destructive ----------
+  function toggle(btn){
+    var on = btn.getAttribute("aria-pressed") !== "true";
+    btn.setAttribute("aria-pressed", String(on));
+    return on;
+  }
+
+  var shiftTimer = null;
+  el("t-cls").addEventListener("click", function(){
+    var zone = el("shiftzone");
+    if(toggle(this)){
+      var n = 0;
+      shiftTimer = setInterval(function(){
+        var d = document.createElement("div");
+        d.textContent = "content inserted above you (+" + (++n) + ")";
+        zone.insertBefore(d, zone.firstChild);
+        if(n >= 6){ clearInterval(shiftTimer); }
+      }, 700);
+    } else {
+      clearInterval(shiftTimer); zone.innerHTML = "";
+    }
+  });
+
+  var blocking = false;
+  el("t-inp").addEventListener("click", function(){
+    blocking = toggle(this);
+  });
+  // A real synchronous block on the main thread during event handling.
+  // This is what actually moves INP, and it will make the page feel bad.
+  document.addEventListener("pointerdown", function(){
+    if(!blocking) return;
+    var stop = performance.now() + 420;
+    while(performance.now() < stop){ /* deliberately burning the main thread */ }
+  }, true);
+
+  el("t-dom").addEventListener("click", function(){
+    var host = el("shiftzone");
+    if(toggle(this)){
+      var frag = document.createDocumentFragment(), box = document.createElement("div");
+      box.id = "domdump";
+      box.style.cssText = "max-height:120px;overflow:auto;font:11px/1.4 var(--mono);color:var(--faint);margin-top:14px;border:1px solid var(--line);border-radius:8px;padding:8px";
+      for(var i = 0; i < 5000; i++){
+        var s = document.createElement("span");
+        s.textContent = "node-" + i + " ";
+        s.setAttribute("data-testid", "synthetic-node-" + i);
+        frag.appendChild(s);
+      }
+      box.appendChild(frag); host.appendChild(box);
+    } else {
+      var d = document.getElementById("domdump"); if(d) d.remove();
+    }
+  });
+
+  el("t-lcp").addEventListener("click", function(){
+    location.search = location.search.indexOf("degrade") > -1 ? "" : "?degrade=1";
+  });
+
+  el("t-reset").addEventListener("click", function(){ location.href = location.pathname; });
+
+  // ---------- page weight, measured not claimed ----------
+  window.addEventListener("load", function(){
+    setTimeout(function(){
+      try{
+        var res = performance.getEntriesByType("resource");
+        var navEntry = performance.getEntriesByType("navigation")[0];
+        var bytes = (navEntry && navEntry.transferSize) || 0;
+        res.forEach(function(r){ bytes += r.transferSize || 0; });
+        var kb = bytes ? (bytes / 1024).toFixed(1) + " KB over the wire" : "size not exposed by this browser";
+        el("pagestat").textContent = kb + " / " + (res.length + 1) + " request" +
+          (res.length ? "s" : "") + " / 0 dependencies";
+      }catch(e){ el("pagestat").textContent = ""; }
+      // Some contexts (headless, some privacy modes) support the entry type but never
+      // emit it. Rather than show a dead tile, fall back to First Contentful Paint and
+      // say plainly that that is what you are looking at.
+      if(!lcpSeen){
+        var fcp = performance.getEntriesByName("first-contentful-paint")[0];
+        if(fcp){
+          paint("lcp", fcp.startTime, ms(fcp.startTime));
+          el("lcp").parentNode.querySelector(".m-k span").textContent = "FCP";
+          el("lcp").parentNode.querySelector(".m-b").textContent = "LCP not reported here";
+        } else {
+          el("lcp").textContent = "n/a";
+          el("lcp-s").textContent = "not reported";
+        }
+      }
+    }, 400);
+  });
+
+  if(location.search.indexOf("degrade") > -1){
+    el("explain").innerHTML = "<strong>Degraded mode is on.</strong> This load ran a real " +
+      "synchronous block on the main thread before the page could paint. The LCP above is " +
+      "the honest consequence. Press Reset to load it clean and compare.";
+  }
+})();
+</script>
+</body>
+</html>
